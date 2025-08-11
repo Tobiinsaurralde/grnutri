@@ -47,7 +47,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 
 .card-style {
   width: 280px;
-  height: 540px;  /* altura fija para todas */
+  height: 500px;  /* altura fija para todas */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,28 +58,55 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
   background-color: rgb(241, 241, 241);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .et_pb_blurb_description {
   flex-grow: 1;  /* hace que el contenido textual crezca y empuje el botón */
   margin-bottom: 30px;  /* espacio entre texto y botón */
 }
+.btn-wrapper {
+  text-align: center;
+  margin-top: -40px;
+  margin-bottom: 35px;
+}
+.btn-wrapper.btn-comprar:hover{
+  cursor: auto;
+}
 
 .btn-comprar {
-  margin-bottom: 30px;  /* fuerza que el botón baje siempre al fondo */
-  background-color: #5a181c;
-  color: white;
+  margin-bottom: 10px;  /* fuerza que el botón baje siempre al fondo */
+  background-color: transparent;
+  color: #5a181c;
   padding: 12px 20px;
   border-radius: 25px;
+  border: 2px solid #5a181c;             /* borde rojo */
+  border-radius: 30px;
   text-align: center;
+    font-weight: 300;                      /* letra más finita */
   font-weight: bold;
   text-decoration: none;
   max-width: 220px;
   transition: background-color 0.3s ease;
 }
 
-.btn-comprar:hover {
-  background-color: #7a2025;
+
+/* CINTA MARRÓN */
+.card-ribbon {
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 150px;
+  background-color: #795548; /* color marrón */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 200px;
+  padding: 5px 0;
+  transform: rotate(45deg);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 	img.wp-smiley, img.emoji {
 		display: inline !important;
@@ -104,19 +131,72 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 <script type="text/javascript" src="https://nutricionsaludargentina.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
 <script type="text/javascript" src="https://nutricionsaludargentina.com/wp-content/plugins/wd-instagram-feed/booster/assets/js/circle-progress.js?ver=1.2.2" id="twb-circle-js"></script>
 <script type="text/javascript" id="twb-global-js-extra">
+import style from './FAQ.module.css';
+import { useState } from 'react';
+import style from './FAQ.module.css';
+import FAQ from './FAQ'; 
 
+const FAQ = ({ question, answer, isOpen, onClick }) => {
+  return (
+    <div className={style.faqItem}>
+      <div 
+        className={`${style.faqQuestion} ${isOpen ? style.open : ''}`} 
+        onClick={onClick}
+      >
+        {question}
+      </div>
+      {isOpen && <div className={style.faqAnswer}>{answer}</div>}
+    </div>
+  );
+};
+
+  const faqData = [
+    {
+      question: '¿Cuánto cuesta el servicio de entrenamiento online?',
+      answer: 'El costo del servicio depende del plan que elijas. Ofrezco diferentes paquetes que se ajustan a tus necesidades y objetivos. Por favor, contáctame para más detalles.',
+    },
+    {
+      question: '¿Cómo se realiza la evaluación inicial?',
+      answer: 'La evaluación inicial se realiza a través de una videollamada en la que analizamos tu historial de entrenamiento, estado de salud actual, objetivos y preferencias.',
+    },
+    {
+      question: '¿Necesito algún equipo especial?',
+      answer: 'No necesitas equipo especial para comenzar. Sin embargo, tener acceso a algunos equipos básicos como pesas o bandas de resistencia puede ser beneficioso para tu progreso.',
+    },
+    {
+      question: '¿Qué métodos de pago aceptas para el servicio',
+      answer: 'Para el servicio , acepto Mercado Pago para pagos en línea. Además, para clientes locales en sesiones presenciales, acepto pagos en efectivo.',
+    },
+  ];
+  
 </script><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><link rel="preload" href="https://nutricionsaludargentina.com/wp-content/themes/Divi.v2.7.5/Divi/core/admin/fonts/modules.ttf" as="font" crossorigin="anonymous"><link rel="shortcut icon" href="assets/images/nutricionnn.png">	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
 	<style id="wp-fonts-local" type="text/css">
 @font-face{font-family:Inter;font-style:normal;font-weight:300 900;font-display:fallback;src:url('https://nutricionsaludargentina.com/wp-content/plugins/woocommerce-desactiv/assets/fonts/Inter-VariableFont_slnt,wght.woff2') format('woff2');font-stretch:normal;}
 @font-face{font-family:Cardo;font-style:normal;font-weight:400;font-display:fallback;src:url('https://nutricionsaludargentina.com/wp-content/plugins/woocommerce-desactiv/assets/fonts/cardo_normal_400.woff2') format('woff2');}
 </style>
+
 <link rel="stylesheet" id="et-divi-customizer-global-cached-inline-styles" href="https://nutricionsaludargentina.com/wp-content/et-cache/global/et-divi-customizer-global-174627687139.min.css" onerror="et_core_page_resource_fallback(this, true)" onload="et_core_page_resource_fallback(this)">			<style>
 				:root {
 				--qlwapp-scheme-font-family:inherit;--qlwapp-scheme-font-size:18px;--qlwapp-scheme-icon-size:60px;--qlwapp-scheme-icon-font-size:24px;--qlwapp-scheme-box-message-word-break:break-all;				}
 			</style>
 				<!-- Meta Pixel Code -->
-	
-	
+	<script>
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '969888277784086');
+	fbq('track', 'PageView');
+	</script>
+  
+	<noscript><img height="1" width="1" style="display:none"
+	src="https://www.facebook.com/tr?id=969888277784086&ev=PageView&noscript=1"
+	/></noscript>
+	<!-- End Meta Pixel Code -->
 <style>[data-columns]::before{visibility:hidden;position:absolute;font-size:1px;}</style><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><script src="https://nutricionsaludargentina.com/wp-includes/js/wp-emoji-release.min.js?ver=6.4.5" defer=""></script><style id="monica-reading-highlight-style">
         .monica-reading-highlight {
           animation: fadeInOut 1.5s ease-in-out;
@@ -145,13 +225,15 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
 						<img src="assets/images/grnutri.png" alt="Nutricion y Salud Argentina" id="logo" data-height-percentage="105" data-actual-width="1264.67" data-actual-height="251.448">
 					</a>
 				</div>
+        
 							<div id="et-top-navigation" data-height="60" data-fixed-height="40" style="padding-left: 309px;">
 											<nav id="top-menu-nav">
 						<ul id="top-menu" class="nav">
-<li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56"><a href="https://nutricionsaludargentina.com/" aria-current="page">Home</a></li>
-<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="sobremi.html">Sobre mí</a></li>
-<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="tienda.html">Tienda</a></li>
-<li id="menu-item-7080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7080"><a href="https://nutricionsaludargentina.com/consultorio/">Consultorio</a></li>
+<li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56"><a href="index.html" aria-current="page">HOME</a></li>
+<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="tienda.html">ELEGÍ TU PLAN</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="sobremi.html"> SOBRE MI</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="contacto.html"> CONTACTAME</a></li>
+
 </ul>						</nav>
 					
 					<!--<a href="https://nutricionsaludargentina.com/cart/" class="et-cart-info"> -->
@@ -163,17 +245,15 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
 				<div class="mobile_nav closed">
 					<span class="select_page">Seleccionar página</span>
 					<span class="mobile_menu_bar mobile_menu_bar_toggle"></span>
-				<ul id="mobile_menu" class="et_mobile_menu"><li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56 et_first_mobile_item"><a href="https://nutricionsaludargentina.com/" aria-current="page">Home</a></li>
-<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://nutricionsaludargentina.com/sobremi/">Sobre mí</a></li>
-<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="https://nutricionsaludargentina.com/tienda/">Tienda</a></li>
-<li id="menu-item-7080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7080"><a href="https://nutricionsaludargentina.com/consultorio/">Consultorio</a></li>
-<li id="menu-item-7113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7113"><a href="https://nutricionsaludargentina.com/nutriplus/">NutriPlus</a></li>
+				<ul id="mobile_menu" class="et_mobile_menu"><li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56 et_first_mobile_item"><a href="index.html/" aria-current="page">Home</a></li>
+<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="tienda.html">Tienda</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="sobremi.html/">Sobre mí</a></li>
 </ul></div>
 			</div>				</div> <!-- #et-top-navigation -->
 			</div> <!-- .container -->
 			<div class="et_search_outer">
 				<div class="container et_search_form_container">
-					<form role="search" method="get" class="et-search-form" action="https://nutricionsaludargentina.com/">
+					<form role="search" method="get" class="et-search-form" action="https://.com/">
 					<input type="search" class="et-search-field" placeholder="Búsqueda …" value="" name="s" title="Buscar:">					</form>
 					<span class="et_close_search_field"></span>
 				</div>
@@ -225,95 +305,272 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
 				<!-- Card 1 -->
 <div class="cards-container">
 
-  <!-- Card 1 -->
-  <div class="card-style">
-    <div class="et_pb_blurb_content">
-      <div class="et_pb_main_blurb_image">
-        <span class="et_pb_image_wrap">
-          <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
-        </span>
+ <div class="card-style">
+  <div class="et_pb_blurb_content">
+    <div class="et_pb_main_blurb_image">
+        <div class="card-ribbon"></div> <!-- Esta es la tira -->
+
+      <span class="et_pb_image_wrap">
+        <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
+      </span>
+    </div>
+    <div class="et_pb_blurb_container">
+      <!-- Botón arriba del título -->
+      <div class="btn-wrapper">
+        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Inicio" target="_blank" class="btn-comprar">¡COMENZÁ HOY!</a>
       </div>
-      <div class="et_pb_blurb_container">
-        <h4 class="et_pb_module_header"><span>Plan Inicio</span></h4>
-        <div class="et_pb_blurb_description">
-          <p>• 1 Consulta inicial completa (evaluación y plan personalizado)</p>
-          <p>• 1 Consulta de control para seguimiento y ajustes</p>
-          <p>• Comunicación vía WhatsApp para consultas</p>
-          <p>• Duración recomendada: mínimo 1 mes para ver resultados</p>
-          <p>• Plan individual e intransferible</p>
-        </div>
-        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Inicio" target="_blank" class="btn-comprar">🛒 Comprar</a>
+
+      <h4 class="et_pb_module_header"><span>*¿CUÁNTO CUESTA EL SERVICIO DE ASESORAMIENTO?*
+</span></h4>
+      <div class="et_pb_blurb_description">
+        <p>• 1 Consulta inicial completa (evaluación y plan personalizado)</p>
+        <p>• 1 Consulta de control para seguimiento y ajustes</p>
+        <p>• Comunicación vía WhatsApp para consultas</p>
+        <p>• Duración recomendada: mínimo 1 mes para ver resultados</p>
+        <p>• Plan individual e intransferible</p>
       </div>
+    </div>
+  </div>
+</div>
+<!-- Card 2 -->
+<div class="card-style">
+
+  <div class="et_pb_blurb_content">
+    <div class="et_pb_main_blurb_image">
+        <div class="card-ribbon"></div> <!-- Esta es la tira -->
+
+      <span class="et_pb_image_wrap">
+        <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
+      </span>
+    </div>
+    <div class="et_pb_blurb_container">
+      <div class="btn-wrapper">
+        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Pro" target="_blank" class="btn-comprar">¡COMENZÁ HOY!</a>
+      </div>
+      <h4 class="et_pb_module_header"><span>Plan Pro</span></h4>
+      <div class="et_pb_blurb_description">
+        <p>• Bono de 4 consultas (1 inicial + 3 controles)</p>
+        <p>• Comunicación vía WhatsApp entre consultas para dudas y ajustes</p>
+        <p>• Cubre un tratamiento completo de 3 meses</p>
+        <p>• Plan individual e intransferible</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 3 -->
+<div class="card-style">
+  <div class="et_pb_blurb_content">
+    <div class="et_pb_main_blurb_image">
+        <div class="card-ribbon"></div> <!-- Esta es la tira -->
+
+      <span class="et_pb_image_wrap">
+        <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
+      </span>
+    </div>
+    <div class="et_pb_blurb_container">
+      <div class="btn-wrapper">
+        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Experto" target="_blank" class="btn-comprar">¡COMENZÁ HOY!</a>
+      </div>
+      <h4 class="et_pb_module_header"><span>Plan Experto</span></h4>
+      <div class="et_pb_blurb_description">
+        <p>• Bono de 7 consultas (1 inicial + 6 controles)</p>
+        <p>• Comunicación vía WhatsApp constante para resolver dudas y modificar el plan</p>
+        <p>• Cubre un tratamiento completo de 6 meses</p>
+        <p>• Plan individual e intransferible</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 4 -->
+<div class="card-style">
+  <div class="et_pb_blurb_content">
+    <div class="et_pb_main_blurb_image">
+        <div class="card-ribbon"></div> <!-- Esta es la tira -->
+
+      <span class="et_pb_image_wrap">
+        <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
+      </span>
+    </div>
+    <div class="et_pb_blurb_container">
+      <div class="btn-wrapper">
+        <a href="https://wa.me/5493794097065?text=Buenas%20me%20gustaría%20comprar%20el%20Seguimiento%20Adicional" target="_blank" class="btn-comprar">¡COMENZÁ HOY!</a>
+      </div>
+      <h4 class="et_pb_module_header"><span>Seguimiento adicional</span></h4>
+      <div class="et_pb_blurb_description">
+        <p>• Consulta de control extra para quienes ya están en un plan y necesitan un ajuste puntual.</p>
+        <p>• Consulta de control</p>
+        <p>• Comunicación vía WhatsApp para dudas entre consultas</p>
+        <p>• Sólo válido si ya se realizó consulta inicial</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .faq-wrapper {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 15px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .faq-wrapper h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .faq-question:hover {
+    background: #f7f7f7;
+  }
+
+  .faq-item.active .faq-question {
+    color: #7a2025;
+    background: #f1f1f1;
+  }
+
+  .faq-icon {
+    font-size: 20px;
+    color: #444;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: #7a2025;
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 20px 20px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .faq-item.active .faq-answer {
+    display: block;
+  }
+</style>
+
+<div class="faq-wrapper">
+  <h2>Preguntas frecuentes</h2>
+
+   <div class="faq-item">
+    <div class="faq-question">
+      ¿Cómo realizo la compra de las guías y/o recetarios?
+      <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+      Elegís la guía o recetario que te interese, me escribís por WhatsApp indicando tu nombre y correo electrónico, y luego de enviar el comprobante de pago, lo recibirás directamente en tu mail.
+<br>Importante: las guías y recetarios son digitales y *no se realizan devoluciones* una vez enviada la compra.
+    </div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">
+      ¿Cuánto cuesta el servicio de entrenamiento online?
+      <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+Ofrezco diferentes planes de asesoramiento nutricional adaptados a tus objetivos y necesidades. Podés optar por un *seguimiento mensual* o una *consulta única*. Los valores varían según el tipo de plan. Para más información, podés comunicarte directamente por WhatsApp.
     </div>
   </div>
 
-  <!-- Card 2 -->
-  <div class="card-style">
-    <div class="et_pb_blurb_content">
-      <div class="et_pb_main_blurb_image">
-        <span class="et_pb_image_wrap">
-          <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
-        </span>
-      </div>
-      <div class="et_pb_blurb_container">
-        <h4 class="et_pb_module_header"><span>Plan Pro</span></h4>
-        <div class="et_pb_blurb_description">
-          <p>• Bono de 4 consultas (1 inicial + 3 controles)</p>
-          <p>• Comunicación vía WhatsApp entre consultas para dudas y ajustes</p>
-          <p>• Cubre un tratamiento completo de 3 meses</p>
-          <p>• Plan individual e intransferible</p>
-        </div>
-        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Pro" target="_blank" class="btn-comprar">🛒 Comprar</a>
-      </div>
+  <div class="faq-item">
+    <div class="faq-question">
+      ¿Cómo se realiza la evaluación inicial?
+      <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+Antes de la consulta, te enviaré un formulario para conocer tu historia clínica, estilo de vida y objetivos. Luego coordinaremos el día y horario para el encuentro, que puede ser *virtual o presencial*. En caso de ser virtual, te enviaré indicaciones para que puedas tomarte las medidas desde casa de forma sencilla.
     </div>
   </div>
 
-  <!-- Card 3 -->
-  <div class="card-style">
-    <div class="et_pb_blurb_content">
-      <div class="et_pb_main_blurb_image">
-        <span class="et_pb_image_wrap">
-          <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
-        </span>
-      </div>
-      <div class="et_pb_blurb_container">
-        <h4 class="et_pb_module_header"><span>Plan Experto</span></h4>
-        <div class="et_pb_blurb_description">
-          <p>• Bono de 7 consultas (1 inicial + 6 controles)</p>
-          <p>• Comunicación vía WhatsApp constante para resolver dudas y modificar el plan</p>
-          <p>• Cubre un tratamiento completo de 6 meses</p>
-          <p>• Plan individual e intransferible</p>
-        </div>
-        <a href="https://wa.me/5493794097065?text=Buenas!%20me%20gustaría%20comprar%20el%20Plan%20Experto" target="_blank" class="btn-comprar">🛒 Comprar</a>
-      </div>
+ <div class="faq-item">
+    <div class="faq-question">
+      ¿Cómo se realiza la evaluación inicial?
+      <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+Antes de la consulta, te enviaré un formulario para conocer tu historia clínica, estilo de vida y objetivos. Luego coordinaremos el día y horario para el encuentro, que puede ser *virtual o presencial*. En caso de ser virtual, te enviaré indicaciones para que puedas tomarte las medidas desde casa de forma sencilla.
     </div>
   </div>
 
-  <!-- Card 4 -->
-  <div class="card-style">
-    <div class="et_pb_blurb_content">
-      <div class="et_pb_main_blurb_image">
-        <span class="et_pb_image_wrap">
-          <span class="et-waypoint et_pb_animation_top et-pb-icon"></span>
-        </span>
-      </div>
-      <div class="et_pb_blurb_container">
-        <h4 class="et_pb_module_header"><span>Seguimiento adicional</span></h4>
-        <div class="et_pb_blurb_description">
-          <p>• Consulta de control extra para quienes ya están en un plan y necesitan un ajuste puntual.</p>
-          <p>• Consulta de control</p>
-          <p>• Comunicación vía WhatsApp para dudas entre consultas</p>
-          <p>• Sólo válido si ya se realizó consulta inicial</p>
-        </div>
-        <a href="https://wa.me/5493794097065?text=Buenas%20me%20gustaría%20comprar%20el%20Seguimiento%20Adicional" target="_blank" class="btn-comprar">🛒 Comprar</a>
-      </div>
+  <div class="faq-item">
+    <div class="faq-question">
+      ¿Para que me sirven las guías o recetarios?
+            <span class="faq-icon">▼</span>
     </div>
+    <div class="faq-answer">
+Son una excelente herramienta si no querés hacer una consulta nutricional personalizada, pero buscás ideas, variedad o inspiración para mejorar tu alimentación diaria. No reemplazan el asesoramiento individual, pero pueden ayudarte a organizarte mejor.
   </div>
+</div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      ¿Necesito algun equipo especial para la consulta?
+            <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+No. Solo vas a necesitar una *balanza* y una *cinta métrica* si la consulta es virtual. Si no contás con estos elementos, te explicaré cómo hacer estimaciones de forma práctica y accesible.
+  </div>
+</div>
+ <div class="faq-item">
+    <div class="faq-question">
+      ¿Cada cuanto tiempo se hace el seguimiento?
+            <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+La frecuencia del seguimiento se define *según la necesidad de cada paciente*. En algunos casos se sugiere mensual, pero puede ajustarse más o menos frecuente dependiendo del objetivo, disponibilidad y ritmo de avance de cada persona.
+  </div>
+</div>
+ <div class="faq-item">
+    <div class="faq-question">
+      Politica de reembolso
+            <span class="faq-icon">▼</span>
+    </div>
+    <div class="faq-answer">
+Una vez realizada y confirmada la compra de cualquier servicio o producto (consulta, plan, guía o recetario), *no se realizan devoluciones de dinero*. Te recomiendo asegurarte antes de realizar el pago y consultarme cualquier duda que tengas.
+
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+</script>
 
 </div>
 
   </div>
+  
 </div> 
+
   <style id="et-builder-module-design-2-cached-inline-styles">.et_pb_section_0.et_pb_section{background-color:#ffffff!important}.et_pb_slide_0{background-color:#0194f3}.et_pb_fullwidth_slider_0.et_pb_slider
  .et_pb_slide_description .et_pb_slide_title{font-family:'Lato',Helvetica,Arial,Lucida,sans-serif;font-weight:300;text-transform:uppercase;font-size:52px!important}.et_pb_fullwidth_slider_0.et_pb_slider.et_pb_module .et_pb_slides .et_pb_slide_content{line-height:1.4em}.et_pb_fullwidth_slider_0.et_pb_slider p{line-height:1.4em}.et_pb_fullwidth_slider_0,.et_pb_fullwidth_slider_0 .et_pb_slide{height:400px;max-height:400px}.et_pb_fullwidth_slider_0 
  .et_pb_slide_description,.et_pb_slider_fullwidth_off.et_pb_fullwidth_slider_0 .et_pb_slide_description{padding-top:0px;padding-bottom:0px}.et_pb_fullwidth_slider_0 .et_pb_slide{background-position:top left}.et_pb_blurb_2.et_pb_blurb .et_pb_module_header,.et_pb_blurb_2.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}.et_pb_blurb_0.et_pb_blurb .et_pb_module_header,.et_pb_blurb_0.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}
@@ -326,3 +583,110 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
  {line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}@media only screen and (max-width:767px){body #page-container .et_pb_section .et_pb_button_0:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}</style><!-- Facebook Comments Plugin for WordPress: http://peadig.com/wordpress-plugins/facebook-comments/ -->
+<div id="font-shadow" class="et_pb_section et_pb_section_2 et_pb_section_parallax et_pb_with_background et_section_regular">
+				
+
+
+
+				<div class="et_parallax_bg_wrap"><div class="et_parallax_bg et_pb_parallax_css" style="background-image: url(https://nutricionsaludargentina.com/wp-content/uploads/textura-marmol-blanco-panorama-diseno-decorativo-fondo-o-piso-baldosas_42682-513.webp);"></div></div>
+				
+				
+					<div class="et_pb_row et_pb_row_5">
+				<div class="et_pb_column et_pb_column_4_4 et_pb_column_11  et_pb_css_mix_blend_mode_passthrough et-last-child">
+				
+				
+				<div class="et_pb_module et_pb_text et_pb_text_0  et_pb_text_align_center et_pb_bg_layout_dark">
+				
+				
+				<div class="et_pb_text_inner"><p>SEGUINOS</p></div>
+			</div> <!-- .et_pb_text -->
+			</div> <!-- .et_pb_column -->
+				
+				
+			</div> <!-- .et_pb_row --><div class="et_pb_row et_pb_row_6 et_pb_row_4col">
+				<div class="et_pb_column et_pb_column_1_4 et_pb_column_12  et_pb_css_mix_blend_mode_passthrough et_pb_column_empty">
+				
+				
+				
+			</div> <!-- .et_pb_column --><div class="et_pb_column et_pb_column_1_4 et_pb_column_13  et_pb_css_mix_blend_mode_passthrough">
+				
+				
+			
+				
+				<div class="et_pb_button_module_wrapper et_pb_button_1_wrapper et_pb_button_alignment_center et_pb_module ">
+				<a class="et_pb_button et_pb_custom_button_icon et_pb_button_1 et_hover_enabled et_pb_bg_layout_dark" href="https://www.instagram.com/grnutricion.ar/" target="_blank" data-icon="">INSTAGRAM</a>
+			</div> <!-- .et_pb_column --><div class="et_pb_column et_pb_column_1_4 et_pb_column_15  et_pb_css_mix_blend_mode_passthrough et-last-child et_pb_column_empty">
+				
+				
+				
+			</div> <!-- .et_pb_column -->
+				
+				
+			</div> <!-- .et_pb_row -->
+				
+				
+			</div> <!-- .et_pb_section -->		</div><!-- .et_builder_inner_content -->
+	</div><!-- .et-l -->
+	
+			
+		</div><!-- #et-boc -->
+							</div> <!-- .entry-content -->
+
+				
+				</article> <!-- .et_pb_post -->
+
+			
+
+</div> <!-- #main-content -->
+
+
+			<footer id="main-footer">
+				
+
+		
+				<div id="footer-bottom">
+					<div class="container clearfix">
+				<ul class="et-social-icons">
+
+
+	<li class="et-social-icon et-social-instagram">
+		<a href="https://www.instagram.com/nutricion.salud.arg/" class="icon">
+			<span>Instagram</span>
+		</a>
+	</li>
+
+</ul>					</div>	<!-- .container -->
+				</div>
+			</footer> <!-- #main-footer -->
+		</div> <!-- #et-main-area -->
+
+
+	</div> <!-- #page-container -->
+
+	<div id="qlwapp" class="qlwapp qlwapp-free qlwapp-button qlwapp-bottom-right qlwapp-all qlwapp-rounded qlwapp-js-ready mobile">
+	<div class="qlwapp-container">
+		
+		<a class="qlwapp-toggle" data-action="open" data-phone="5493794097065" data-message="¡Hola!" role="button" tabindex="0" target="_blank">
+							<i class="qlwapp-icon qlwapp-whatsapp-icon"></i>
+						<i class="qlwapp-close" data-action="close">×</i>
+							<span class="qlwapp-text">¡Contacta a Ludmi!</span>
+					</a>
+	</div>
+</div>
+	
+<style id="et-builder-module-design-2-cached-inline-styles">.et_pb_section_0.et_pb_section{background-color:#ffffff!important}.et_pb_slide_0{background-color:#0194f3}.et_pb_fullwidth_slider_0.et_pb_slider
+ .et_pb_slide_description .et_pb_slide_title{font-family:'Lato',Helvetica,Arial,Lucida,sans-serif;font-weight:300;text-transform:uppercase;font-size:52px!important}.et_pb_fullwidth_slider_0.et_pb_slider.et_pb_module .et_pb_slides .et_pb_slide_content{line-height:1.4em}.et_pb_fullwidth_slider_0.et_pb_slider p{line-height:1.4em}.et_pb_fullwidth_slider_0,.et_pb_fullwidth_slider_0 .et_pb_slide{height:400px;max-height:400px}.et_pb_fullwidth_slider_0 
+ .et_pb_slide_description,.et_pb_slider_fullwidth_off.et_pb_fullwidth_slider_0 .et_pb_slide_description{padding-top:0px;padding-bottom:0px}.et_pb_fullwidth_slider_0 .et_pb_slide{background-position:top left}.et_pb_blurb_2.et_pb_blurb .et_pb_module_header,.et_pb_blurb_2.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}.et_pb_blurb_0.et_pb_blurb .et_pb_module_header,.et_pb_blurb_0.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}
+ .et_pb_blurb_3.et_pb_blurb .et_pb_module_header,.et_pb_blurb_3.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}.et_pb_blurb_1.et_pb_blurb .et_pb_module_header,.et_pb_blurb_1.et_pb_blurb .et_pb_module_header a{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:30px;color:#5a181c!important}.et_pb_blurb_3.et_pb_blurb{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;min-height:100px}.et_pb_blurb_0.et_pb_blurb{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;min-height:100px}.et_pb_blurb_2.et_pb_blurb{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;min-height:100px}
+ .et_pb_blurb_1.et_pb_blurb{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;min-height:100px}.et_pb_blurb_3.et_pb_blurb .et_pb_module_header{margin-bottom:15px}.et_pb_blurb_2.et_pb_blurb .et_pb_module_header{margin-bottom:15px}.et_pb_blurb_1.et_pb_blurb .et_pb_module_header{margin-bottom:15px}.et_pb_blurb_0.et_pb_blurb .et_pb_module_header{margin-bottom:15px}.et_pb_blurb_1 .et-pb-icon{color:#5a181c}.et_pb_blurb_0 .et-pb-icon{color:#5a181c}.et_pb_blurb_2 .et-pb-icon{color:#5a181c}.et_pb_blurb_3 .et-pb-icon{color:#5a181c}.et_pb_section_2.et_pb_section{background-color:#27c9b9!important}.et_pb_text_0.et_pb_text{color:#777777!important}.et_pb_text_0{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif;text-transform:uppercase;font-size:48px}
+ body #page-container .et_pb_section .et_pb_button_1{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_0{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_1:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:before
+ {content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_1:before{content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}.et_pb_button_0,.et_pb_button_0:after{transition:all 300ms ease 0ms}.et_pb_button_1,.et_pb_button_1:after{transition:all 300ms ease 0ms}
+ .et_pb_slider .et_pb_slide_0.et_pb_slide .et_pb_slide_description .et_pb_slide_title{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;font-weight:600!important;text-transform:uppercase!important;font-size:50px!important;text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)!important}.et_pb_slides .et_pb_slide_0.et_pb_slide .et_pb_slide_description{text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)}.et_pb_slider .et_pb_slide_0
+ {background-position:top left;background-image:url(assets/images/slider.png);background-color:#0194f3}@media only screen and (max-width:980px){.et_pb_section_0.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}.et_pb_section_2.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}body #page-container .et_pb_section .et_pb_button_0:before
+ {line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
+ body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}@media only screen and (max-width:767px){body #page-container .et_pb_section .et_pb_button_0:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
+ body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}</style><!-- Facebook Comments Plugin for WordPress: http://peadig.com/wordpress-plugins/facebook-comments/ -->
+
+
+
+
