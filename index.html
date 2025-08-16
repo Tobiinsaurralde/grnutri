@@ -278,49 +278,121 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
 
 	
 	
-			<header id="main-header" data-height-onload="74" data-height-loaded="true" data-fixed-height-onload="74" style="top: 0px;">
-			<div class="container clearfix et_menu_container">
-							<div class="logo_container">
-					<span class="logo_helper"></span>
-					<a href="index.html">
-						<img src="assets/images/grnutri.png" alt="Nutricion y Salud Argentina" id="logo" data-height-percentage="105" data-actual-width="1264.67" data-actual-height="251.448">
-					</a>
-				</div>
-							<div id="et-top-navigation" data-height="60" data-fixed-height="40">
-											<nav id="top-menu-nav">
-						<ul id="top-menu" class="nav">
-<li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56"><a href="https://nutricionsaludargentina.com/" aria-current="page">HOME</a></li>
-<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="tienda.html">ELEGÍ TU PLAN</a></li>
-<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="sobremi.html">SOBRE MÍ</a></li>
-<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="contacto.html">CONTÁCTAME</a></li>
+			<header id="main-header">
+  <div class="nav-container">
 
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/images/grnutri.png" alt="Nutricion y Salud Argentina" id="logo">
+      </a>
+    </div>
 
-</ul>						</nav>
-					
-					<!--<a href="https://nutricionsaludargentina.com/cart/" class="et-cart-info"> -->
-				<span></span>
-			</a>
-					
-				<div id="et_mobile_nav_menu" bis_skin_checked="1">
-				<div class="mobile_nav closed" bis_skin_checked="1">
-					<span class="select_page">Seleccionar página</span>
-					<span class="mobile_menu_bar mobile_menu_bar"></span>
-				<ul id="mobile_menu" class="et_mobile_menu"><li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-56 et_first_mobile_item"><a href="https://nutricionsaludargentina.com/" aria-current="page">Home</a></li>
-<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://nutricionsaludargentina.com/sobremi/">Sobre mí</a></li>
-<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="https://nutricionsaludargentina.com/tienda/">Tienda</a></li>
-<li id="menu-item-7080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7080"><a href="https://nutricionsaludargentina.com/consultorio/">Consultorio</a></li>
-<li id="menu-item-7113" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7113"><a href="https://nutricionsaludargentina.com/nutriplus/">NutriPlus</a></li>
-</ul></div>
-			</div>	</div> <!-- #et-top-navigation -->
-			</div> <!-- .container -->
-			<div class="et_search_outer">
-				<div class="container et_search_form_container">
-					<form role="search" method="get" class="et-search-form" action="https://nutricionsaludargentina.com/">
-					<input type="search" class="et-search-field" placeholder="Búsqueda …" value="" name="s" title="Buscar:">					</form>
-					<span class="et_close_search_field"></span>
-				</div>
-			</div>
-		</header>	<div id="et-main-area">
+    <!-- NAV DESKTOP -->
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="tienda.html">ELEGÍ TU PLAN</a></li>
+        <li><a href="sobremi.html">SOBRE MÍ</a></li>
+        <li><a href="contacto.html">CONTÁCTAME</a></li>
+      </ul>
+    </nav>
+
+    <!-- ICONO MOBILE -->
+    <div class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      ☰
+    </div>
+  </div>
+
+  <!-- NAV MOBILE -->
+  <nav class="mobile-menu">
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="tienda.html">ELEGÍ TU PLAN</a></li>
+      <li><a href="sobremi.html">SOBRE MÍ</a></li>
+      <li><a href="contacto.html">CONTÁCTAME</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+/* CONTENEDOR NAV */
+.nav-container {
+  display: flex;
+  justify-content: space-between; /* logo izq / nav der */
+  align-items: center;
+  padding: 10px 20px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+/* LOGO */
+#logo {
+  height: 60px;
+  width: auto;
+}
+
+/* NAV DESKTOP */
+.nav-links ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links ul li a {
+  text-decoration: none;
+  color: #5a181c;
+  font-weight: 600;
+  font-size: 1rem;
+
+}
+
+/* BOTÓN MOBILE */
+.mobile-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* NAV MOBILE */
+.mobile-menu {
+  display: none;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+.mobile-menu.open {
+  display: block;
+}
+.mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+.mobile-menu ul li {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+.mobile-menu ul li a {
+  text-decoration: none;
+  color: #5a181c;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* escondo menú desktop */
+  color: #5a181c;
+
+  }
+  .mobile-toggle {
+    display: block; /* muestro botón ☰ */
+  }
+}
+</style>
+	<div id="et-main-area">
 	
 <div id="main-content">
 
@@ -379,10 +451,10 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
 					<div class="et_pb_blurb_container">
 						<h4 class="et_pb_module_header"><span>CONÓCEME</span></h4>
 						<div class="et_pb_blurb_description"><p> 
-Mi enfoque va mucho más allá de “hacer dieta”. Acompaño procesos de cambio de hábitos, con el objetivo de mejorar tu salud, composición corporal y también tu relación con la comida y con tu cuerpo. Trabajo desde una mirada realista y flexible: creo que alimentarse bien no implica pasar hambre, sino aprender a comer según tus necesidades, objetivos y también tus gustos.
+							Mi rol como licenciada en Nutrición es acercarte la ciencia de una forma simple y práctica, para que puedas aplicarla en tu día a día sin complicaciones. Mi objetivo es acompañarte en un proceso de reeducación alimentaria, adaptando todo a tu realidad, tus gustos y tu ritmo. Nada de planes rígidos ni imposibles: se trata de hacer cambios sostenibles y reales.
 
 						</p>
-<p>bajo peso, sobrepeso y obesidad, colesterol y triglicéridos elevados, hipertensión arterial, hipotiroidismo,	anemia,	patologías digestivas como gastritis,	intolerancia al gluten y celiaquía,	embarazo y lactancia,	nutrición pediátrica (desde los 5 años)...entre otras.
+<p>
 ¿Querés sacar turno? Escribinos por WhatsApp al 3794097065 , y nuestro asistente se comunicará con vos para brindarte toda la información sobre las consultas y ayudarte con cualquier duda que tengas.
 </p></div>
 					</div>
@@ -445,7 +517,7 @@ Mi enfoque va mucho más allá de “hacer dieta”. Acompaño procesos de cambi
 				<div class="et_pb_blurb_content">
 					<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><span class="et-waypoint et_pb_animation_top et-pb-icon"></span></span></div>
 					<div class="et_pb_blurb_container">
-						<h4 class="et_pb_module_header"><span>NUESTRO ESPACIO</span></h4>
+						<h4 class="et_pb_module_header"><span>CONSULTORIO</span></h4>
 						<div class="et_pb_blurb_description"><p>En nuestro espacio de atención nutricional, ubicado en Corrientes Capital, ofrecemos consultas presenciales y también atención online por videollamada, para que puedas elegir la modalidad que mejor se adapte a tu rutina.
 </p>
 Nuestro enfoque va mucho más allá de “hacer dieta”. Acompañamos procesos de cambio de hábitos, con el objetivo de mejorar tu salud, composición corporal y también tu relación con la comida y con tu cuerpo. Trabajamos desde una mirada realista y flexible: creemos que alimentarse bien no implica pasar hambre, sino aprender a comer según tus necesidades, objetivos y también tus gustos.
@@ -488,9 +560,9 @@ Nuestro enfoque va mucho más allá de “hacer dieta”. Acompañamos procesos 
 				<div class="et_pb_blurb_content">
 					<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><span class="et-waypoint et_pb_animation_top et-pb-icon"></span></span></div>
 					<div class="et_pb_blurb_container">
-						<h4 class="et_pb_module_header"><span>AUMENTÁ TU BIENESTAR</span></h4>
-						<div class="et_pb_blurb_description"><p>Para que los resultados que logres sean sostenibles en el tiempo, lo ideal es que dejes de tomarlo como una carrera contra el tiempo para bajar de peso, y empieces a tomarlo como un estilo de vida para mejorar tu bienestar a nivel general.</p>
-<p>Comer saludable y medido, hacer ejercicio con regularidad y tener momentos de desconexión, es bueno tanto para el cuerpo como para la mente. No solo te va a permitir mejorar tu peso o tu composición corporal, sino también, mejorar tus análisis de sangre, tener más energía y rendir más en el día a día.</p></div>
+						<h4 class="et_pb_module_header"><span>NUTRICIÓN DEPORTIVA</span></h4>
+<div class="et_pb_blurb_description"><p></p>Mi enfoque va mucho más allá de “hacer dieta”. Acompaño procesos de cambio de hábitos, con el objetivo de mejorar tu salud, composición corporal y también tu relación con la comida y con tu cuerpo. Trabajo desde una mirada realista y flexible: creo que alimentarse bien no implica pasar hambre, sino aprender a comer según tus necesidades, objetivos y también tus gustos.</p>
+<p>No es solo para deportistas profesionales: cualquier persona que haga ejercicio, ya sea en el gimnasio, en una clase de yoga, jugando al fútbol con amigos o saliendo a correr, puede beneficiarse de una buena alimentación adaptada a su actividad.</p></div>
 					</div>
 					
 				</div> <!-- .et_pb_blurb_content -->
