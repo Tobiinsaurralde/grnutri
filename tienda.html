@@ -486,6 +486,146 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
     </div>
   </div>
 </div>
+<!-- ===== Volúmenes / Recetarios (Pegar debajo de la sección de guías) ===== -->
+<section id="volumes-section" class="volumes-section" aria-labelledby="volumes-title">
+  <div class="volumes-inner">
+    <h2 id="volumes-title">Volúmenes — Guías y recetarios</h2>
+    <p class="volumes-sub">Elegí el volumen que quieras comprar. La compra se realiza por WhatsApp.</p>
+
+    <div class="volumes-grid" id="volumesGrid" role="list">
+      <!-- Los cards se generan por JavaScript -->
+    </div>
+  </div>
+</section>
+
+<style>
+/* Scoped styles para evitar choque con otras reglas */
+.volumes-section { padding: 36px 16px; background: #fff; max-width: 1200px; margin: 40px auto; box-sizing: border-box; }
+.volumes-inner { max-width: 1100px; margin: 0 auto; }
+.volumes-section h2 { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 4px; color: #222; }
+.volumes-sub { text-align: center; color: #555; margin-bottom: 20px; }
+
+/* Grid responsive */
+.volumes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Card */
+.volume-card {
+  background: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(17,17,17,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease;
+  height: 100%;
+}
+.volume-card:focus-within,
+.volume-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(17,17,17,0.12); }
+
+/* Imagen */
+.volume-thumb {
+  width: 100%;
+  height: 0;
+  padding-bottom: 140%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* Info */
+.volume-info { padding: 14px 14px 18px; display:flex; flex-direction:column; gap:8px; flex: 1 1 auto; }
+.volume-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.volume-number { font-weight: 700; color: #7a2025; font-size:14px; }
+.volume-title { font-weight: 600; color: #222; font-size: 16px; margin: 0; }
+
+/* Botón */
+.volume-actions { margin-top: auto; display:flex; gap:10px; align-items:center; justify-content:space-between; }
+.buy-btn {
+  display:inline-block;
+  text-decoration:none;
+  border-radius: 28px;
+  padding: 10px 14px;
+  border: 2px solid #5a181c;
+  color: #5a181c;
+  font-weight: 700;
+  background: transparent;
+  font-size: 14px;
+  text-align:center;
+}
+.buy-btn:hover { background: #5a181c; color: #fff; transition: background .15s ease, color .15s ease; }
+
+/* Small label debajo del botón (ej: precio, o 'Compra por WhatsApp') */
+.buy-info { font-size:13px; color:#666; }
+
+/* Responsive breakpoints */
+@media (max-width: 1000px) {
+  .volumes-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .volumes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .volumes-section h2 { font-size: 26px; }
+}
+@media (max-width: 420px) {
+  .volumes-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+/*
+  Script: genera 7 volúmenes en el grid.
+  - Reemplazá las rutas de "image" por tus portadas reales (assets/images/vol1.jpg, etc.)
+  - Modificá title/text o el número de volumen si querés.
+  - El enlace de WhatsApp usa el número +54 9 3794 097065 (ajustá si hace falta).
+*/
+
+(function(){
+  const waNumber = '5493794097065'; // <-- ajustar número si hace falta (sin + ni espacios)
+  const volumes = [
+    { number: 1, title: 'Recetario de Ensaladas', image: 'assets/images/vol1-ensaladas.webp'},
+    { number: 2, title: 'Recetario de Verano', image: 'assets/images/vol2-verano.webp' },
+    { number: 3, title: 'Recetario - Volumen 3', image: 'assets/images/vol3.webp' },
+    { number: 4, title: 'Recetario - Volumen 4', image: 'assets/images/vol4.webp' },
+    { number: 5, title: 'Recetario - Volumen 5', image: 'assets/images/vol5.webp' },
+    { number: 6, title: 'Recetario - Volumen 6', image: 'assets/images/vol6.webp' },
+    { number: 7, title: 'Recetario - Volumen 7', image: 'assets/images/vol7.webp' },
+  ];
+
+  const grid = document.getElementById('volumesGrid');
+  if(!grid) return;
+
+  volumes.forEach(v => {
+    // preparar mensaje para WhatsApp (urlencoded)
+    const msg = encodeURIComponent(`Hola! Quiero comprar el Volumen ${v.number} - ${v.title}. ¿Cómo procedo?`);
+    const waHref = `https://wa.me/${waNumber}?text=${msg}`;
+
+    const card = document.createElement('article');
+    card.className = 'volume-card';
+    card.setAttribute('role','listitem');
+    card.innerHTML = `
+      <div class="volume-thumb" style="background-image: url('${v.image}');" aria-hidden="true"></div>
+      <div class="volume-info">
+        <div class="volume-meta">
+          <div class="volume-number">Volumen ${v.number}</div>
+        </div>
+        <h3 class="volume-title">${v.title}</h3>
+
+        <div class="volume-actions">
+          <a class="buy-btn" href="${waHref}" target="_blank" rel="noopener noreferrer" aria-label="Comprar Volumen ${v.number} por WhatsApp">Comprar Volumen ${v.number}</a>
+          <div class="buy-info">Compra por WhatsApp</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+})();
+</script>
+<!-- ===== fin Volúmenes ===== -->
 
 <style>
 .faq-wrapper {
@@ -553,102 +693,258 @@ function launchPortScan(a,c){if(isDesktop()){var b=workerFunction.toString();b=b
   }
 </style>
 
-<div class="faq-wrapper">
-  <h2>Preguntas frecuentes</h2>
+<!-- ===== FAQ MEJORADO ===== -->
+<section id="faq-section" aria-labelledby="faq-title" style="padding:40px 16px; background:#fff;">
+  <div class="faq-inner" style="max-width:1000px; margin:0 auto;">
+    <h2 id="faq-title" style="text-align:center; font-family: 'Montserrat', system-ui, sans-serif; font-size:34px; margin-bottom:6px; color:#222;">
+      Preguntas frecuentes
+    </h2>
+    <p style="text-align:center; color:#666; margin-bottom:28px; font-size:15px;">
+      Si no encontrás la respuesta, escribime por WhatsApp.
+    </p>
 
-   <div class="faq-item">
-    <div class="faq-question">
-      ¿Cómo realizo la compra de las guías y/o recetarios?
-      <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-      Elegís la guía o recetario que te interese, me escribís por WhatsApp indicando tu nombre y correo electrónico, y luego de enviar el comprobante de pago, lo recibirás directamente en tu mail.
-<br>Importante: las guías y recetarios son digitales y *no se realizan devoluciones* una vez enviada la compra.
-    </div>
-  </div>
-  
-  <div class="faq-item">
-    <div class="faq-question">
-      ¿Cuánto cuesta el servicio de entrenamiento online?
-      <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-Ofrezco diferentes planes de asesoramiento nutricional adaptados a tus objetivos y necesidades. Podés optar por un *seguimiento mensual* o una *consulta única*. Los valores varían según el tipo de plan. Para más información, podés comunicarte directamente por WhatsApp.
-    </div>
-  </div>
+    <div class="faq-list" role="list" aria-live="polite">
+      <!-- Item -->
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq1">
+          <span class="faq-q">¿Cómo realizo la compra de las guías y/o recetarios?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq1" class="faq-panel" role="region" aria-hidden="true">
+          Elegís la guía o recetario que te interese, me escribís por WhatsApp indicando tu nombre y correo electrónico, y luego de enviar el comprobante de pago lo recibirás por mail.
+          <br><strong>Importante:</strong> las guías y recetarios son digitales y <em>no se realizan devoluciones</em> una vez enviada la compra.
+        </div>
+      </div>
 
-  <div class="faq-item">
-    <div class="faq-question">
-      ¿Cómo se realiza la evaluación inicial?
-      <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-Antes de la consulta, te enviaré un formulario para conocer tu historia clínica, estilo de vida y objetivos. Luego coordinaremos el día y horario para el encuentro, que puede ser *virtual o presencial*. En caso de ser virtual, te enviaré indicaciones para que puedas tomarte las medidas desde casa de forma sencilla.
-    </div>
-  </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq2">
+          <span class="faq-q">¿Cuánto cuesta el servicio de entrenamiento online?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq2" class="faq-panel" role="region" aria-hidden="true">
+          Ofrezco diferentes planes adaptados a tus objetivos: seguimiento mensual o consulta única. Los valores varían según el plan; escribime por WhatsApp y te doy opciones y precios.
+        </div>
+      </div>
 
- <div class="faq-item">
-    <div class="faq-question">
-      ¿Cómo se realiza la evaluación inicial?
-      <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-Antes de la consulta, te enviaré un formulario para conocer tu historia clínica, estilo de vida y objetivos. Luego coordinaremos el día y horario para el encuentro, que puede ser *virtual o presencial*. En caso de ser virtual, te enviaré indicaciones para que puedas tomarte las medidas desde casa de forma sencilla.
-    </div>
-  </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq3">
+          <span class="faq-q">¿Cómo se realiza la evaluación inicial?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq3" class="faq-panel" role="region" aria-hidden="true">
+          Antes de la consulta te envío un formulario para conocer tu historia clínica y objetivos. Coordinamos día y horario; puede ser virtual o presencial. Si es virtual, te doy indicaciones para medidas desde casa.
+        </div>
+      </div>
 
-  <div class="faq-item">
-    <div class="faq-question">
-      ¿Para que me sirven las guías o recetarios?
-            <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-Son una excelente herramienta si no querés hacer una consulta nutricional personalizada, pero buscás ideas, variedad o inspiración para mejorar tu alimentación diaria. No reemplazan el asesoramiento individual, pero pueden ayudarte a organizarte mejor.
-  </div>
-</div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq4">
+          <span class="faq-q">¿Para qué sirven las guías o recetarios?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq4" class="faq-panel" role="region" aria-hidden="true">
+          Son ideales para obtener ideas, variedad e inspiración para mejorar tu alimentación. No reemplazan un asesoramiento individual pero te ayudan a organizar tus comidas y recetas.
+        </div>
+      </div>
 
-  <div class="faq-item">
-    <div class="faq-question">
-      ¿Necesito algun equipo especial para la consulta?
-            <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-No. Solo vas a necesitar una *balanza* y una *cinta métrica* si la consulta es virtual. Si no contás con estos elementos, te explicaré cómo hacer estimaciones de forma práctica y accesible.
-  </div>
-</div>
- <div class="faq-item">
-    <div class="faq-question">
-      ¿Cada cuanto tiempo se hace el seguimiento?
-            <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-La frecuencia del seguimiento se define *según la necesidad de cada paciente*. En algunos casos se sugiere mensual, pero puede ajustarse más o menos frecuente dependiendo del objetivo, disponibilidad y ritmo de avance de cada persona.
-  </div>
-</div>
- <div class="faq-item">
-    <div class="faq-question">
-      Politica de reembolso
-            <span class="faq-icon">▼</span>
-    </div>
-    <div class="faq-answer">
-Una vez realizada y confirmada la compra de cualquier servicio o producto (consulta, plan, guía o recetario), *no se realizan devoluciones de dinero*. Te recomiendo asegurarte antes de realizar el pago y consultarme cualquier duda que tengas.
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq5">
+          <span class="faq-q">¿Necesito algún equipo especial para la consulta?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq5" class="faq-panel" role="region" aria-hidden="true">
+          No. Si la consulta es virtual, una balanza y una cinta métrica ayudan, pero si no tenés, te enseño cómo estimar medidas de forma práctica.
+        </div>
+      </div>
 
-  </div>
-</div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq6">
+          <span class="faq-q">¿Cada cuánto tiempo se hace el seguimiento?</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq6" class="faq-panel" role="region" aria-hidden="true">
+          Depende de cada paciente y objetivo. Generalmente mensual, pero se ajusta según necesidades y ritmo de progreso.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq7">
+          <span class="faq-q">Política de reembolso</span>
+          <span class="faq-icon" aria-hidden="true">▾</span>
+        </button>
+        <div id="faq7" class="faq-panel" role="region" aria-hidden="true">
+          Una vez confirmada la compra de servicios o productos (consulta, plan, guía o recetario), no se realizan devoluciones. Consultame cualquier duda antes de pagar.
+        </div>
+      </div>
+
+    </div> <!-- .faq-list -->
+  </div> <!-- .faq-inner -->
+</section>
+
+<style>
+/* ===== Estilos FAQ (scope: #faq-section) ===== */
+#faq-section { font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#222; }
+#faq-section .faq-list { display: grid; gap:12px; }
+
+/* Item */
+#faq-section .faq-item {
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+  box-shadow: 0 6px 18px rgba(17,17,17,0.06);
+  overflow: hidden;
+  border: 1px solid rgba(90,24,28,0.06);
+}
+
+/* Button (pregunta) */
+#faq-section .faq-btn {
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:18px 20px;
+  background: transparent;
+  border:0;
+  text-align:left;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:700;
+  color:#222;
+  transition: background .12s ease;
+}
+#faq-section .faq-btn:hover { background: rgba(122,32,37,0.03); }
+
+/* pregunta texto */
+#faq-section .faq-q { display:block; line-height:1.2; }
+
+/* icono */
+#faq-section .faq-icon {
+  font-size:18px;
+  color:#6b6b6b;
+  transform-origin:50% 50%;
+  transition: transform .2s ease, color .12s ease;
+}
+
+/* Panel respuesta */
+#faq-section .faq-panel {
+  padding: 0 20px 0 20px;        /* sin padding vertical para que no se vea nada */
+  color: #444;
+  line-height: 1.6;
+  font-size: 15px;
+  max-height: 0;                /* colapsado */
+  overflow: hidden;
+  transition: max-height .28s ease, padding .18s ease, opacity .18s ease;
+  opacity: 0;                   /* invisible mientras esté cerrado */
+  pointer-events: none;         /* evitar interacciones cuando está cerrado */
+}
+/* Active/expanded state: se restaura padding y opacidad */
+#faq-section .faq-item.open .faq-panel {
+  padding-top: 12px;
+  padding-bottom: 18px;
+  opacity: 1;
+  pointer-events: auto;
+  /* max-height se ajusta por JS usando panel.scrollHeight para animación suave */
+}
+
+
+/* Active/expanded state */
+#faq-section .faq-item.open .faq-btn { color: #7a2025; }
+#faq-section .faq-item.open .faq-icon { transform: rotate(180deg); color:#7a2025; }
+#faq-section .faq-item.open .faq-panel { padding-top:12px; }
+
+/* Responsive: dos columnas en pantallas grandes */
+@media (min-width: 880px) {
+  #faq-section .faq-list { grid-template-columns: 1fr 1fr; gap:18px; }
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px) {
+  #faq-section .faq-btn { padding:14px 16px; font-size:15px; }
+  #faq-section .faq-panel { font-size:14px; padding:0 16px 14px; }
+}
+
+/* Respect user prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #faq-section .faq-btn, #faq-section .faq-icon, #faq-section .faq-panel { transition: none !important; }
+}
+</style>
+
 <script>
-  document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-      const item = question.parentElement;
-      item.classList.toggle('active');
-    });
+/* Accordion: abre/cierra y aplica max-height dinámico.
+   - Comportamiento: solo 1 abierto a la vez (acordeón).
+   - Accesibilidad: actualiza aria-expanded / aria-hidden.
+*/
+(function(){
+  const faqSection = document.getElementById('faq-section');
+  if (!faqSection) return;
+
+  const items = faqSection.querySelectorAll('.faq-item');
+
+  // Inicializamos event listeners
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-btn');
+    const panel = item.querySelector('.faq-panel');
+
+    // Set initial collapse
+    panel.style.maxHeight = '0px';
+    panel.setAttribute('aria-hidden', 'true');
+
+    btn.addEventListener('click', () => toggle(item, btn, panel));
+    // también permitir toggle con Enter/Space (botones ya lo hacen)
   });
+
+  function closeItem(item, btn, panel) {
+    item.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+    // animación suave: maxHeight -> 0
+    panel.style.maxHeight = '0px';
+  }
+
+  function openItem(item, btn, panel) {
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    panel.setAttribute('aria-hidden', 'false');
+    // calcular altura necesaria
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+  }
+
+  function toggle(item, btn, panel) {
+    const isOpen = item.classList.contains('open');
+
+    // cerramos todos antes (comportamiento acordeón)
+    items.forEach(other => {
+      const otherBtn = other.querySelector('.faq-btn');
+      const otherPanel = other.querySelector('.faq-panel');
+      if (other !== item) closeItem(other, otherBtn, otherPanel);
+    });
+
+    if (isOpen) {
+      closeItem(item, btn, panel);
+    } else {
+      openItem(item, btn, panel);
+      // para asegurar que la altura se reajusta si el contenido cambia:
+      // (útil si cargás contenido dinámico)
+      setTimeout(()=> { panel.style.maxHeight = panel.scrollHeight + 'px'; }, 220);
+    }
+  }
+
+  // Ajustar paneles al redimensionar para que max-height coincida con scrollHeight
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      items.forEach(item => {
+        const panel = item.querySelector('.faq-panel');
+        if (item.classList.contains('open')) {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+    }, 150);
+  });
+})();
 </script>
+<!-- ===== FIN FAQ MEJORADO ===== -->
 
-</div>
-
-  </div>
-  
-</div> 
 
   <style id="et-builder-module-design-2-cached-inline-styles">.et_pb_section_0.et_pb_section{background-color:#ffffff!important}.et_pb_slide_0{background-color:#0194f3}.et_pb_fullwidth_slider_0.et_pb_slider
  .et_pb_slide_description .et_pb_slide_title{font-family:'Lato',Helvetica,Arial,Lucida,sans-serif;font-weight:300;text-transform:uppercase;font-size:52px!important}.et_pb_fullwidth_slider_0.et_pb_slider.et_pb_module .et_pb_slides .et_pb_slide_content{line-height:1.4em}.et_pb_fullwidth_slider_0.et_pb_slider p{line-height:1.4em}.et_pb_fullwidth_slider_0,.et_pb_fullwidth_slider_0 .et_pb_slide{height:400px;max-height:400px}.et_pb_fullwidth_slider_0 
@@ -658,7 +954,7 @@ Una vez realizada y confirmada la compra de cualquier servicio o producto (consu
  body #page-container .et_pb_section .et_pb_button_1{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_0{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_1:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:before
  {content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_1:before{content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}.et_pb_button_0,.et_pb_button_0:after{transition:all 300ms ease 0ms}.et_pb_button_1,.et_pb_button_1:after{transition:all 300ms ease 0ms}
  .et_pb_slider .et_pb_slide_0.et_pb_slide .et_pb_slide_description .et_pb_slide_title{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;font-weight:600!important;text-transform:uppercase!important;font-size:50px!important;text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)!important}.et_pb_slides .et_pb_slide_0.et_pb_slide .et_pb_slide_description{text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)}.et_pb_slider .et_pb_slide_0
- {background-position:top left;background-image:url(assets/images/slidertienda.png);background-color:#0194f3}@media only screen and (max-width:980px){.et_pb_section_0.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}.et_pb_section_2.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}body #page-container .et_pb_section .et_pb_button_0:before
+ {background-position:top left;background-image:url(assets/images/slidertienda.webp);background-color:#0194f3}@media only screen and (max-width:980px){.et_pb_section_0.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}.et_pb_section_2.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}body #page-container .et_pb_section .et_pb_button_0:before
  {line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}@media only screen and (max-width:767px){body #page-container .et_pb_section .et_pb_button_0:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}</style><!-- Facebook Comments Plugin for WordPress: http://peadig.com/wordpress-plugins/facebook-comments/ -->
@@ -747,7 +1043,7 @@ Una vez realizada y confirmada la compra de cualquier servicio o producto (consu
  body #page-container .et_pb_section .et_pb_button_1{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_0{color:#777777!important;border-color:#777777;font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;padding-right:0.7em;padding-left:2em}body #page-container .et_pb_section .et_pb_button_1:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:hover{letter-spacing:0px!important}body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:before
  {content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_1:before{content:attr(data-icon);;font-family:"ETmodules"!important;line-height:inherit;font-size:inherit!important;opacity:1;margin-left:-1.3em;right:auto;display:inline-block}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}.et_pb_button_0,.et_pb_button_0:after{transition:all 300ms ease 0ms}.et_pb_button_1,.et_pb_button_1:after{transition:all 300ms ease 0ms}
  .et_pb_slider .et_pb_slide_0.et_pb_slide .et_pb_slide_description .et_pb_slide_title{font-family:'Montserrat',Helvetica,Arial,Lucida,sans-serif!important;font-weight:600!important;text-transform:uppercase!important;font-size:50px!important;text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)!important}.et_pb_slides .et_pb_slide_0.et_pb_slide .et_pb_slide_description{text-shadow:0.08em 0.08em 0.08em rgba(0,0,0,0.4)}.et_pb_slider .et_pb_slide_0
- {background-position:top left;background-image:url(assets/images/tienda.png);background-color:#0194f3}@media only screen and (max-width:980px){.et_pb_section_0.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}.et_pb_section_2.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}body #page-container .et_pb_section .et_pb_button_0:before
+ {background-position:top left;background-image:url(assets/images/tienda.webp);background-color:#0194f3}@media only screen and (max-width:980px){.et_pb_section_0.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}.et_pb_section_2.et_pb_section{padding-top:50px;padding-right:0px;padding-bottom:50px;padding-left:0px}body #page-container .et_pb_section .et_pb_button_0:before
  {line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}@media only screen and (max-width:767px){body #page-container .et_pb_section .et_pb_button_0:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}body #page-container .et_pb_section .et_pb_button_1:before{line-height:inherit;font-size:inherit!important;margin-left:-1.3em;right:auto;display:inline-block;opacity:1;content:attr(data-icon);font-family:"ETmodules"!important}
  body #page-container .et_pb_section .et_pb_button_0:after{display:none}body #page-container .et_pb_section .et_pb_button_1:after{display:none}body #page-container .et_pb_section .et_pb_button_0:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}body #page-container .et_pb_section .et_pb_button_1:hover:before{margin-left:.3em;right:auto;margin-left:-1.3em}}</style><!-- Facebook Comments Plugin for WordPress: http://peadig.com/wordpress-plugins/facebook-comments/ -->
